@@ -1,6 +1,5 @@
 import 'package:enterprise/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData(
@@ -22,7 +21,7 @@ class AppTheme {
         fontFamily: 'Inter',
       ),
     ),
-    textTheme:  TextTheme(
+    textTheme: TextTheme(
       bodyLarge: TextStyle(color: AppColors.textLight),
       bodyMedium: TextStyle(color: AppColors.textLight),
       bodySmall: TextStyle(color: AppColors.textLight),
@@ -31,7 +30,7 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(8.sp),
+         // borderRadius: BorderRadiusGeometry.circular(8.sp),
         ),
         foregroundColor: AppColors.white,
         iconColor: AppColors.primary,
@@ -71,11 +70,10 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryDark,
-
         foregroundColor: AppColors.white,
         iconColor: AppColors.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(8.sp),
+          borderRadius: BorderRadiusGeometry.circular(8),
         ),
 
         textStyle: TextStyle(

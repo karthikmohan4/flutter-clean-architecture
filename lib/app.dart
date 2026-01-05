@@ -1,6 +1,6 @@
-import 'package:enterprise/core/constants/routes_constants.dart';
 import 'package:enterprise/core/di/injection.dart';
-import 'package:enterprise/core/router/app_router.dart' as AppRouter;
+import 'package:enterprise/core/router/app_router.dart' as app_router;
+import 'package:enterprise/core/theme/app_theme.dart';
 import 'package:enterprise/core/theme/bloc/theme_bloc.dart';
 import 'package:enterprise/core/theme/bloc/theme_event.dart';
 import 'package:enterprise/core/theme/bloc/theme_state.dart';
@@ -29,10 +29,12 @@ class _AppState extends State<App> {
           return MaterialApp.router(
             title: 'Enterprise',
             debugShowCheckedModeBanner: false,
-            themeMode: themeState.themeMode == AppThemeMode.dark
+            darkTheme: AppTheme.darkTheme,
+            theme: AppTheme.lightTheme,
+            themeMode: (themeState.themeMode == AppThemeMode.dark)
                 ? ThemeMode.dark
-                : ThemeMode.light,
-            routerConfig: AppRouter.router,
+                :  ThemeMode.light,
+            routerConfig: app_router.router,
           );
         },
       ),

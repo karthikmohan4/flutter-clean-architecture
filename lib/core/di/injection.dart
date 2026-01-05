@@ -6,6 +6,7 @@ import 'package:enterprise/core/theme/domain/repository/theme_repository.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -21,13 +22,18 @@ Future<void> initDependencies() async {
   // local/cache storage
   AndroidOptions getAndroidOptions() =>
       const AndroidOptions(encryptedSharedPreferences: true);
+      final sharedPreferences = await SharedPreferences.getInstance();
+serviceLocator.registerLazySingleton<SharedPreferences>(
+    () => sharedPreferences,
+  );
+
   final secureStorage = FlutterSecureStorage(aOptions: getAndroidOptions());
   serviceLocator.registerLazySingleton<FlutterSecureStorage>(
     () => secureStorage,
   );
 
   //theme
-  serviceLocator.registerLazySingleton<ThemeRepository>(()=>ThemeRepositoryImpl(secureStorage: serviceLocator()));
+  serviceLocator.registerLazySingleton<ThemeRepository>(()=>ThemeRepositoryImpl(storage: serviceLocator()));
 
   //Dio
   serviceLocator.registerLazySingleton(() => dio);

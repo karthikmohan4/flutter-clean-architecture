@@ -1,14 +1,14 @@
 import 'package:enterprise/core/constants/storage_constants.dart';
 import 'package:enterprise/core/theme/domain/entity/entity.dart';
 import 'package:enterprise/core/theme/domain/repository/theme_repository.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeRepositoryImpl implements ThemeRepository {
-  final FlutterSecureStorage secureStorage;
-  ThemeRepositoryImpl({required this.secureStorage});
+  final SharedPreferences storage;
+  ThemeRepositoryImpl({required this.storage});
   @override
   Future<AppThemeMode> getThemeMode() async {
-    final theme = secureStorage.read(key: StorageConstants.kTheme).toString();
+    final theme = storage.getString(StorageConstants.kTheme).toString();
 
     switch (theme) {
       case 'light':
@@ -28,6 +28,6 @@ class ThemeRepositoryImpl implements ThemeRepository {
     } else if (themeMode == AppThemeMode.dark) {
       value = StorageConstants.vDark;
     }
-    await secureStorage.write(key: StorageConstants.kTheme, value: value);
+    await storage.setString( StorageConstants.kTheme, value);
   }
 }
