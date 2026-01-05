@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:enterprise/core/network/network_client.dart';
 import 'package:enterprise/core/theme/bloc/theme_bloc.dart';
+import 'package:enterprise/core/theme/data/repository/theme_repository_impl.dart';
+import 'package:enterprise/core/theme/domain/repository/theme_repository.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -23,6 +25,9 @@ Future<void> initDependencies() async {
   serviceLocator.registerLazySingleton<FlutterSecureStorage>(
     () => secureStorage,
   );
+
+  //theme
+  serviceLocator.registerLazySingleton<ThemeRepository>(()=>ThemeRepositoryImpl(secureStorage: serviceLocator()));
 
   //Dio
   serviceLocator.registerLazySingleton(() => dio);

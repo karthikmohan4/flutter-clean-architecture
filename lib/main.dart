@@ -1,19 +1,15 @@
-import 'dart:async';
-import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
+
 
 import 'package:enterprise/app.dart';
+import 'package:enterprise/core/di/injection.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runZonedGuarded(
-    () {
-      WidgetsFlutterBinding.ensureInitialized();
-      runApp(const App());
-    },
-    (error, stackTrace) {
-      log("run zoned guard error:$error");
-      log("run zoned guard stack trace:$stackTrace");
-    },
-  );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDependencies();
+  runApp(const App());
+  // runZonedGuarded(() {}, (error, stackTrace) {
+  //   log("run zoned guard error:$error");
+  //   log("run zoned guard stack trace:$stackTrace");
+  // });
 }
-
