@@ -1,4 +1,6 @@
 class StorageConstants {
+  static final localeKey = 'locale';
+
   static final kIsLogged = 'isLogged';
   static final kToken = 'token';
 

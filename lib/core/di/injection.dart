@@ -3,6 +3,9 @@ import 'package:enterprise/core/network/network_client.dart';
 import 'package:enterprise/core/theme/bloc/theme_bloc.dart';
 import 'package:enterprise/core/theme/data/repository/theme_repository_impl.dart';
 import 'package:enterprise/core/theme/domain/repository/theme_repository.dart';
+import 'package:enterprise/l10n/bloc/cubit/locale_cubit.dart';
+import 'package:enterprise/l10n/data/locale_repository_impl.dart';
+import 'package:enterprise/l10n/domain/locale_repository.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -22,8 +25,8 @@ Future<void> initDependencies() async {
   // local/cache storage
   AndroidOptions getAndroidOptions() =>
       const AndroidOptions(encryptedSharedPreferences: true);
-      final sharedPreferences = await SharedPreferences.getInstance();
-serviceLocator.registerLazySingleton<SharedPreferences>(
+  final sharedPreferences = await SharedPreferences.getInstance();
+  serviceLocator.registerLazySingleton<SharedPreferences>(
     () => sharedPreferences,
   );
 
@@ -32,8 +35,15 @@ serviceLocator.registerLazySingleton<SharedPreferences>(
     () => secureStorage,
   );
 
+  //locale
+  serviceLocator.registerLazySingleton<LocaleRepository>(()=>LocaleRepositoryImpl(sharedPreferences: serviceLocator()));
+  serviceLocator.registerFactory<LocaleCubit>(()=>LocaleCubit(serviceLocator()));
+
+
   //theme
-  serviceLocator.registerLazySingleton<ThemeRepository>(()=>ThemeRepositoryImpl(storage: serviceLocator()));
+  serviceLocator.registerLazySingleton<ThemeRepository>(
+    () => ThemeRepositoryImpl(storage: serviceLocator()),
+  );
 
   //Dio
   serviceLocator.registerLazySingleton(() => dio);
