@@ -1,3 +1,4 @@
+import 'package:enterprise/config/flavors.dart';
 import 'package:enterprise/core/di/injection.dart';
 import 'package:enterprise/core/router/app_router.dart' as app_router;
 import 'package:enterprise/core/theme/app_theme.dart';
@@ -21,6 +22,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
+    var supportedLocalesList = [Locale('en'), Locale('es')];
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -35,7 +37,7 @@ class _AppState extends State<App> {
           return BlocBuilder<LocaleCubit, Locale>(
             builder: (context, localeState) {
               return MaterialApp.router(
-                title: 'Enterprise',
+                title: F.name,
                 debugShowCheckedModeBanner: false,          
                 darkTheme: AppTheme.darkTheme,
                 theme: AppTheme.lightTheme,
@@ -46,7 +48,7 @@ class _AppState extends State<App> {
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
-                supportedLocales: [Locale('en'), Locale('es')],
+                supportedLocales: supportedLocalesList,
                 themeMode: (themeState.themeMode == AppThemeMode.dark)
                     ? ThemeMode.dark
                     : ThemeMode.light,

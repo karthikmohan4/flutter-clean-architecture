@@ -8,10 +8,32 @@ flavors:
       name: "Enterprise Dev"
 
     android:
+      applicationId: "com.example.enterprise.dev"
+    ios:
+      bundleId: "com.example.enterprise.dev"
+    macos:
+      bundleId: "com.example.enterprise.dev"
+
+  staging:
+    app:
+      name: "Enterprise Staging"
+
+    android:
+      applicationId: "com.example.enterprise.staging"
+    ios:
+      bundleId: "com.example.enterprise.staging"
+    macos:
+      bundleId: "com.example.enterprise.staging"
+  
+  production:
+    app:
+      name: "Enterprise"
+
+    android:
       applicationId: "com.example.enterprise"
     ios:
       bundleId: "com.example.enterprise"
     macos:
-      bundleId: "com.example.apple"
+      bundleId: "com.example.enterprise"
 
-
+ide: vscode
